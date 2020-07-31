@@ -1,16 +1,14 @@
-import React from 'react';
-import useAxios from 'axios-hooks'
+import React, {Fragment} from 'react';
+
+import ChatContainer from './ChatContainer';
 
 
 function App() {
-    const [{ data, loading, error }, refetch] = useAxios(
-        'http://localhost:8080/welcome'
-    )
 
   return (
-    <div>
-        <div>{data}</div>
-    </div>
+      <Fragment>
+        <ChatContainer />
+      </Fragment>
   );
 }
 
