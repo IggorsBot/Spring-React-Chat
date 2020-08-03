@@ -5,7 +5,7 @@ import React, {Fragment} from 'react';
 import {connect} from './util/ws';
 
 // Components
-import ChatContainer from './ChatContainer';
+import ChatContainer from './Chat/ChatContainer';
 
 
 function App() {
