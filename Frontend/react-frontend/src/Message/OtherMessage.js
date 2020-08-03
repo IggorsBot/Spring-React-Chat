@@ -1,5 +1,7 @@
+// React
 import React, {Fragment} from 'react';
 
+// Components
 import MessageText from './MessageContent/MessageText';
 import MessageTime from './MessageContent/MessageTime';
 
@@ -15,15 +17,15 @@ function OtherMessage() {
 
     return (
         <Fragment>
-            <div class="message-row other-message">
-                <div class="message-content">
+            <div className="message-row other-message">
+                <div className="message-content">
                     <img src="images/profiles/daryl.png" alt="Daryl Duckmanton"/>
                     <MessageText messageText={messageText}/>
                     <MessageTime messageTime={messageTime}/>
                 </div>
             </div>
         </Fragment>
-  );
+    );
 }
 
 export default OtherMessage;

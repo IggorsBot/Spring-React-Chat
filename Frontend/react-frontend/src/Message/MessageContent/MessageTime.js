@@ -1,14 +1,15 @@
+// React
 import React, {Fragment} from 'react';
 
 
 function MessageTime(props) {
 
-  return (
-      <Fragment>
-        <div class="message-time">
-            {props.messageTime}
-        </div>
-      </Fragment>
+    return (
+        <Fragment>
+            <div className="message-time">
+                {props.messageTime}
+            </div>
+        </Fragment>
   );
 }
 

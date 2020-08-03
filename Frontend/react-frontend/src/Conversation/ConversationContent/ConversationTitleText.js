@@ -1,9 +1,12 @@
+// React
 import React, {Fragment} from 'react';
 
+
 function ConversationTitleText(props) {
+
     return (
         <Fragment>
-            <div class="title-text">
+            <div className="title-text">
                 {props.text}
             </div>
         </Fragment>

@@ -1,9 +1,12 @@
+// React
 import React, {Fragment} from 'react';
 
+
 function ConversationMessage(props) {
+
     return (
         <Fragment>
-            <div class="conversation-message">
+            <div className="conversation-message">
                 {props.message}
             </div>
         </Fragment>

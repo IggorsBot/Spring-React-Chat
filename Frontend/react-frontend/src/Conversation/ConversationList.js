@@ -1,9 +1,12 @@
+// React
 import React, {Fragment} from 'react';
 
+// Components
 import Conversation from './Conversation';
 
 
 function ConversationList() {
+
     return (
         <Fragment>
             <div id="conversation-list">

@@ -1,3 +1,4 @@
+// React
 import React, {Fragment} from 'react';
 
 
@@ -5,7 +6,7 @@ function ConversationDate(props) {
 
     return (
         <Fragment>
-            <div class="created-date">
+            <div className="created-date">
                 {props.date}
             </div>
         </Fragment>
