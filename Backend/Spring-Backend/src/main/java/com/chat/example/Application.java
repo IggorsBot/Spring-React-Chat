@@ -1,4 +1,4 @@
-package com.gogabot.chat;
+package com.chat.example;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

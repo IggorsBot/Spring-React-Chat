@@ -1,4 +1,4 @@
-package com.gogabot.chat.config;
+package com.chat.example.config;
 
 
 import org.springframework.context.annotation.Configuration;
