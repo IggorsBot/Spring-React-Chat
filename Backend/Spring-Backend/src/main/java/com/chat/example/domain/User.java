@@ -4,6 +4,8 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -16,25 +18,30 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long userId;                                                       //    user_id - id пользователя в БД
+    private Long userId;
 
     @NotBlank
     @Size(max = 30)
-    private String username;                                                        //    name - имя пользователя
+    private String username;
 
     @NotBlank
     @Size(max = 120)
-    private String password;                                                    //    password - пароль пользователя
+    private String password;
 
 
     @NotBlank
     @Size(max = 50)
     @Email
-    private String email;                                                       //    email - email пользователя
+    private String email;
 
-    public User() {
 
-    }
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(	name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
+
+    public User() {}
 
     public User(String username, String password, String email) {
         this.username = username;
@@ -72,5 +79,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }
