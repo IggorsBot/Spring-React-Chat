@@ -1,5 +1,6 @@
 package com.chat.example.config;
 
+import com.chat.example.config.jwt.JavaUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.HttpSecurityBuilder;
@@ -29,6 +30,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         userDetailService.createUser(user);
 
         return userDetailService;
+    }
+
+    @Bean
+    public JavaUtil javaUtil() {
+        return new JavaUtil();
     }
 
     @Bean
