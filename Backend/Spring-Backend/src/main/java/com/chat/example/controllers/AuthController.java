@@ -5,10 +5,12 @@ import com.chat.example.domain.User;
 import com.chat.example.payload.request.RegistrationRequest;
 import com.chat.example.payload.response.MessageResponse;
 import com.chat.example.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,14 +21,17 @@ import javax.validation.Valid;
 public class AuthController {
 
     final
+    BCryptPasswordEncoder passwordEncoder;
+
+    final
     UserRepository userRepository;
 
-    public AuthController(UserRepository userRepository) {
+    public AuthController(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    @MessageMapping("/registration")
-    @SendTo("/topic/activity")
+    @PostMapping("/registration")
     public ResponseEntity<?> registerUser(@Valid @RequestBody RegistrationRequest registrationRequest) {
 
         if (userRepository.existsByUsername(registrationRequest.getUsername())) {
@@ -39,9 +44,8 @@ public class AuthController {
 
         User user = new User(
                 registrationRequest.getUsername(),
-                "123456",
+                passwordEncoder.encode(registrationRequest.getPassword()),
                 registrationRequest.getEmail()
-//                passwordEncoder.encode(registrationRequest.getPassword())
         );
 
         userRepository.save(user);

@@ -1,7 +1,6 @@
 package com.chat.example.config;
 
 import com.chat.example.config.jwt.AuthenticationFilter;
-import com.chat.example.config.jwt.JpaUserDetailsService;
 import com.chat.example.config.jwt.LoginFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,10 +10,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -27,11 +24,12 @@ import java.util.Arrays;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     final
-    JpaUserDetailsService jpaUserDetailsService;
+    AuthenticationProviderService authenticationProvider;
 
-    public WebSecurityConfig(JpaUserDetailsService jpaUserDetailsService) {
-        this.jpaUserDetailsService = jpaUserDetailsService;
+    public WebSecurityConfig(AuthenticationProviderService authenticationProvider) {
+        this.authenticationProvider = authenticationProvider;
     }
+
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
@@ -49,9 +47,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(jpaUserDetailsService)
-                .passwordEncoder(NoOpPasswordEncoder.getInstance());
+    protected void configure(AuthenticationManagerBuilder auth) throws AuthenticationException {
+        auth.authenticationProvider(authenticationProvider);
     }
 
     @Override
@@ -70,7 +67,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(new LoginFilter("/login",
                                 authenticationManager()),
                         UsernamePasswordAuthenticationFilter.class)
-//                 Filter for other requests to check JWT in header
+                // Filter for other requests to check JWT in header
                 .addFilterBefore(new AuthenticationFilter(),
                         UsernamePasswordAuthenticationFilter.class);
     }
