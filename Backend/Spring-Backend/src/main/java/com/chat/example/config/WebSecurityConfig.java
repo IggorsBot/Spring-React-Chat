@@ -1,6 +1,7 @@
 package com.chat.example.config;
 
 import com.chat.example.config.jwt.AuthenticationFilter;
+import com.chat.example.config.jwt.JpaUserDetailsService;
 import com.chat.example.config.jwt.LoginFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -8,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
@@ -24,6 +26,12 @@ import java.util.Arrays;
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    final
+    JpaUserDetailsService jpaUserDetailsService;
+
+    public WebSecurityConfig(JpaUserDetailsService jpaUserDetailsService) {
+        this.jpaUserDetailsService = jpaUserDetailsService;
+    }
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
@@ -42,30 +50,33 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        var userDetailsService = new InMemoryUserDetailsManager();
-
-        var user = User.withUsername("john")
-                .password("123456")
-                .authorities("read")
-                .build();
-        userDetailsService.createUser(user);
-        auth.userDetailsService(userDetailsService)
+        auth.userDetailsService(jpaUserDetailsService)
                 .passwordEncoder(NoOpPasswordEncoder.getInstance());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().cors().and().authorizeRequests()
+        http
+                .csrf().disable().cors()
+                .and()
+                .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/registration").permitAll()
+                .antMatchers(HttpMethod.GET, "/chat-websocket/**").permitAll()
+
                 .anyRequest().authenticated()
                 .and()
                 // Filter for the api/login requests
                 .addFilterBefore(new LoginFilter("/login",
                                 authenticationManager()),
                         UsernamePasswordAuthenticationFilter.class)
-                // Filter for other requests to check JWT in header
+//                 Filter for other requests to check JWT in header
                 .addFilterBefore(new AuthenticationFilter(),
                         UsernamePasswordAuthenticationFilter.class);
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/chat-websocket/**");
     }
 }

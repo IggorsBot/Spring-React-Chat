@@ -1,10 +1,14 @@
 package com.chat.example.controllers;
 
+import com.chat.example.domain.Message;
 import com.chat.example.domain.User;
 import com.chat.example.payload.request.RegistrationRequest;
 import com.chat.example.payload.response.MessageResponse;
 import com.chat.example.repository.UserRepository;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +25,8 @@ public class AuthController {
         this.userRepository = userRepository;
     }
 
-    @PostMapping("/registration")
+    @MessageMapping("/registration")
+    @SendTo("/topic/activity")
     public ResponseEntity<?> registerUser(@Valid @RequestBody RegistrationRequest registrationRequest) {
 
         if (userRepository.existsByUsername(registrationRequest.getUsername())) {
