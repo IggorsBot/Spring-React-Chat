@@ -9,8 +9,13 @@ import ChatTitle from './ChatTitle';
 import ChatMessageList from './Message/ChatMessageList';
 import ChatForm from './ChatForm';
 
+// Third-Party
+import {connect} from './Chat/util/ws';
+
 
 function ChatContainer() {
+    // connect()
+
     return (
         <Fragment>
             <div id="chat-container">

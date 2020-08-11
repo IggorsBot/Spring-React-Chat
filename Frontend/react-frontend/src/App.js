@@ -1,30 +1,16 @@
 // React
-import React, {Fragment} from 'react';
-
-// Third-Party
-import {connect} from './Chat/util/ws';
+import React, {Fragment, useState} from 'react';
 
 // Components
 import ChatContainer from './Chat/ChatContainer';
 import Auth from './Chat/Auth/Auth';
 
 
-// function App() {
-//
-//     connect()
-//     return (
-//         <Fragment>
-//             <ChatContainer />
-//
-//         </Fragment>
-//     );
-// }
-//
 function App() {
-    connect()
+
     return (
         <Fragment>
-            <Auth />
+            {localStorage.getItem('isAuth') ? <ChatContainer /> : <Auth />}
         </Fragment>
     )
 }
