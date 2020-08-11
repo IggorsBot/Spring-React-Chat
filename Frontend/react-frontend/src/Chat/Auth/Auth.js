@@ -8,16 +8,15 @@ import Login from './Login';
 
 function Auth() {
 
-    const [isLogin, setLogin] = useState(true);
-
+    const [isLoginPage, setLoginPage] = useState(true);
 
     return (
         <Fragment>
             <div id="auth-container">
                 <div id="auth-left-side"></div>
-                {isLogin ?
-                    <Login setLogin={setLogin}/> :
-                    <Registration setLogin={setLogin}/>}
+                {isLoginPage ?
+                    <Login setLoginPage={setLoginPage} /> :
+                    <Registration setLoginPage={setLoginPage}/>}
             </div>
         </Fragment>
     );

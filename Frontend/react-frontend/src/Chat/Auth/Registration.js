@@ -27,7 +27,7 @@ function Registration(params) {
                 <input type="submit" className="auth-btn" value="Registration"/>
 
                 <div className="bottom-text">
-                    Have you an account? <span className="link" onClick={() => params .setLogin(true)}>Sing in</span>
+                    Have you an account? <span className="link" onClick={() => params.setLoginPage(true)}>Sing in</span>
                 </div>
 
             </div>
