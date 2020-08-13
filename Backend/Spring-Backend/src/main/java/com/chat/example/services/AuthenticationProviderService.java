@@ -1,7 +1,6 @@
 package com.chat.example.services;
 
 import com.chat.example.domain.CustomUserDetails;
-import com.chat.example.services.JpaUserDetailsService;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AuthenticationProviderService implements AuthenticationProvider {
-
 
     private final JpaUserDetailsService userDetailsService;
 

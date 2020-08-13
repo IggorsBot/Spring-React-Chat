@@ -1,5 +1,10 @@
 package com.chat.example.config;
 
+import com.chat.example.domain.CustomUserDetails;
+import com.chat.example.services.AuthenticationProviderService;
+import com.chat.example.services.AuthenticationService;
+import com.chat.example.services.JpaUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
@@ -21,6 +26,12 @@ import java.util.Optional;
 @EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
+    private final JpaUserDetailsService userDetailsService;
+
+    public WebSocketConfig(JpaUserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
+
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
         config.enableSimpleBroker("/topic");
@@ -41,8 +52,10 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                 if (accessor != null && StompCommand.CONNECT.equals(accessor.getCommand())) {
                     Optional.ofNullable(accessor.getNativeHeader("Authorization")).ifPresent(ah -> {
                         String bearerToken = ah.get(0).replace("Bearer ", "");
-                        Authentication user = new UsernamePasswordAuthenticationToken("alexeyyy", "123456");
-                        accessor.setUser(user);
+                        String username = AuthenticationService.getUserFromToken(bearerToken);
+                        CustomUserDetails user = (CustomUserDetails) userDetailsService.loadUserByUsername(username);
+                        Authentication authentication = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
+                        accessor.setUser(authentication);
                     });
                 }
                 return message;
