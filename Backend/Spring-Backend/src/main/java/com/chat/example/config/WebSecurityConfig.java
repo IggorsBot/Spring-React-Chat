@@ -31,16 +31,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .cors().and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests()
+                .and().authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/registration").permitAll()
                 .anyRequest().authenticated()
 
                 // Filter to check JWT in header
-                .and()
-                .addFilterBefore(new AuthenticationFilter(),
+                .and().addFilterBefore(new AuthenticationFilter(),
                         UsernamePasswordAuthenticationFilter.class);
     }
 

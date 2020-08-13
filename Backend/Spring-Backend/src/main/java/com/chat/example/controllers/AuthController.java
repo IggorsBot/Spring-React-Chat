@@ -22,6 +22,7 @@ import javax.validation.Valid;
 
 
 @RestController
+@CrossOrigin(origins = {"*"})
 public class AuthController {
     static final String PREFIX = "Bearer";
 
@@ -41,7 +42,6 @@ public class AuthController {
     }
 
     @PostMapping("/registration")
-    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<?> registerUser(@Valid @RequestBody RegistrationRequest registrationRequest, HttpServletResponse response) {
 
         if (userRepository.existsByUsername(registrationRequest.getUsername())) {
@@ -67,7 +67,6 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest, HttpServletResponse response) {
 
         try {
