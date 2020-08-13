@@ -1,10 +1,7 @@
-package com.chat.example.config;
+package com.chat.example.services;
 
-import com.chat.example.config.jwt.CustomUserDetails;
-import com.chat.example.config.jwt.JpaUserDetailsService;
-import net.bytebuddy.asm.Advice;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+import com.chat.example.domain.CustomUserDetails;
+import com.chat.example.services.JpaUserDetailsService;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

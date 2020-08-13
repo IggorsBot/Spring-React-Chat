@@ -1,8 +1,8 @@
-package com.chat.example.config.jwt;
+package com.chat.example.services;
 
+import com.chat.example.domain.CustomUserDetails;
 import com.chat.example.domain.User;
 import com.chat.example.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

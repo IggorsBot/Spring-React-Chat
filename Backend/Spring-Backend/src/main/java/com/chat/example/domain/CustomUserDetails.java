@@ -1,4 +1,4 @@
-package com.chat.example.config.jwt;
+package com.chat.example.domain;
 
 import com.chat.example.domain.User;
 import org.springframework.security.core.GrantedAuthority;
