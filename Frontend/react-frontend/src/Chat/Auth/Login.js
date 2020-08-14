@@ -8,7 +8,7 @@ import AuthService from './../services/AuthService';
 function Login(params) {
 
     const [username, setUsername] = useState("");
-    const [password, setPassword] = useState(true);
+    const [password, setPassword] = useState("");
 
     function handleUsername(evt) {
         setUsername(evt.target.value)

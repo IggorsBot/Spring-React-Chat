@@ -7,12 +7,13 @@ var stompClient = null
 const handlers = []
 
 export function connect() {
-    const socket = SockJS('http://localhost:8080/chat-websocket')
-    stompClient = Stomp.over(socket)
-    stompClient.connect({}, frame => {
-        console.log("Connected " + frame)
-        stompClient.subscribe('/topic/active', message => {
-            handlers.forEach(handler => handler(JSON.parse(message.body)))
+    return new Promise(function(resolve, reject) {
+        const socket = SockJS('http://localhost:8080/chat-websocket')
+        stompClient = Stomp.over(socket)
+        stompClient.connect({"Authorization": localStorage.getItem("authorization")}, frame => {
+            stompClient.subscribe('/topic/active', message => {
+                handlers.forEach(handler => handler(JSON.parse(message.body)))
+            })
         })
     })
 }
@@ -30,4 +31,10 @@ export function disconnect() {
 
 export function sendMessage(message) {
     stompClient.send("/app/newMessage", {}, JSON.stringify(message))
+}
+
+export function getConversations() {
+    if (stompClient != null) {
+        stompClient.send("/app/conversationList", {}, JSON.stringify())
+    }
 }

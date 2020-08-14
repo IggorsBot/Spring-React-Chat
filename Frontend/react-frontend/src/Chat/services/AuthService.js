@@ -25,6 +25,22 @@ class AuthService {
         localStorage.removeItem('user')
         localStorage.removeItem('isAuth')
     }
+
+    registration(username, email, password) {
+        return axios
+            .post(API_URL + "/registration", {
+                username,
+                email,
+                password
+            })
+            .then(response => {
+                if (response.status === 200) {
+                    localStorage.setItem('authorization', response.headers['authorization'])
+                    localStorage.setItem('user', username)
+                    localStorage.setItem('isAuth', true)
+                }
+            })
+    }
 }
 
 export default new AuthService();
