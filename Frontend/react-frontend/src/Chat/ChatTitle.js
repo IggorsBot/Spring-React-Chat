@@ -1,5 +1,5 @@
 // React
-import React, {Fragment, useState} from 'react';
+import React from 'react';
 
 // Components
 import AuthService from './services/AuthService';
@@ -7,18 +7,24 @@ import AuthService from './services/AuthService';
 
 function ChatTitle() {
 
+    const [username, setUsername] = React.useState("")
+
+    React.useEffect(() => {
+      setUsername(localStorage.getItem("user"))
+    }, []);
+
     function logout() {
         AuthService.logout()
         window.location.reload()
     }
 
     return (
-        <Fragment>
+        <React.Fragment>
             <div id="chat-title">
-                <span>{localStorage.getItem("user")}</span>
-                <img src="icons/logout.png" height="20px" width="20px" alt="Delete Conversation" onClick={logout}/>
+                <span>{username}</span>
+                <img src="icons/logout.png" height="20px" width="20px" alt="Logout" onClick={logout}/>
             </div>
-        </Fragment>
+        </React.Fragment>
     );
 }
 

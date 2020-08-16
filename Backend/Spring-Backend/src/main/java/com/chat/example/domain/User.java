@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 
 @Entity
@@ -16,6 +17,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "user_id")
     private Long userId;
 
     @NotBlank
@@ -32,12 +34,16 @@ public class User {
     @Email
     private String email;
 
+    @ManyToMany
+    private Set<Chat> chats;
+
     public User() {}
 
-    public User(String username, String password, String email) {
+    public User(String username, String password, String email, Set<Chat> chats) {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.chats = chats;
     }
 
     public Long getUserId() {
@@ -70,5 +76,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Set<Chat> getChats() {
+        return chats;
+    }
+
+    public void setChats(Set<Chat> chats) {
+        this.chats = chats;
     }
 }

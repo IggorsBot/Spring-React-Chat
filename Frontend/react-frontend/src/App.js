@@ -1,5 +1,5 @@
 // React
-import React, {Fragment, useState} from 'react';
+import React, {Fragment} from 'react';
 
 // Components
 import ChatContainer from './Chat/ChatContainer';

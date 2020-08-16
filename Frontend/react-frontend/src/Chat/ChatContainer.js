@@ -4,24 +4,27 @@ import React, {Fragment} from 'react';
 // Components
 import SearchContainer from './SearchContainer';
 import ConversationList from './Conversation/ConversationList';
-import NewMessageContainer from './NewMessageContainer';
+import NewChatContainer from './NewChatContainer';
 import ChatTitle from './ChatTitle';
 import ChatMessageList from './Message/ChatMessageList';
 import ChatForm from './ChatForm';
 
-// Third-Party
-import {connect} from './Chat/util/ws';
+// Util
+import {connect} from './../Chat/util/ws';
 
 
 function ChatContainer() {
-    // connect()
+
+    React.useEffect(() => {
+      connect()
+    }, []);
 
     return (
         <Fragment>
             <div id="chat-container">
                 <SearchContainer />
                 <ConversationList />
-                <NewMessageContainer />
+                <NewChatContainer />
                 <ChatTitle />
                 <ChatMessageList />
                 <ChatForm />

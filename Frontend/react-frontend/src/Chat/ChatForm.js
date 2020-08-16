@@ -4,12 +4,12 @@ import React, {Fragment, useState} from 'react';
 // Third-Party
 import {sendMessage} from './util/ws'
 
+
 function ChatForm() {
 
     const[message, setMessage] = useState('')
 
     const save = () => {
-        console.log(message)
         sendMessage({contect: message})
         setMessage("")
     }

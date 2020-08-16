@@ -10,13 +10,13 @@ public class Chat {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "chat_id")
-    private Long chatId;                           // id чата
+    private Long chatId;
 
-    private String name;                            //    name - заголовок чата, его название
+    private String name;
 
     @ManyToMany
     @JoinColumn(name = "user_id")
-    private Collection<User> userId;                   //    user_id - id пользователя, находящегося в чате
+    private Collection<User> userId;
 
     public Chat() {}
 

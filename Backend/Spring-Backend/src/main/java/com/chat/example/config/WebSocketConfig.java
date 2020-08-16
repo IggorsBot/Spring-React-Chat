@@ -16,6 +16,7 @@ import org.springframework.messaging.support.ChannelInterceptor;
 import org.springframework.messaging.support.MessageHeaderAccessor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
@@ -55,6 +56,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                         String username = AuthenticationService.getUserFromToken(bearerToken);
                         CustomUserDetails user = (CustomUserDetails) userDetailsService.loadUserByUsername(username);
                         Authentication authentication = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
+                        SecurityContextHolder.getContext().setAuthentication(authentication);
                         accessor.setUser(authentication);
                     });
                 }

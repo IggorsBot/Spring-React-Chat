@@ -11,7 +11,8 @@
     "axios-hooks": "^2.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1",
+    "react-modal": "^3.11.2",
+    "react-scripts": "^3.4.3",
     "sockjs-client": "^1.4.0"
   },
   "scripts": {
