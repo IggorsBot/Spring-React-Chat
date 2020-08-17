@@ -1,5 +1,7 @@
 package com.chat.example.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -35,6 +37,7 @@ public class User {
     private String email;
 
     @ManyToMany
+    @JsonIgnore
     private Set<Chat> chats;
 
     public User() {}
@@ -84,5 +87,13 @@ public class User {
 
     public void setChats(Set<Chat> chats) {
         this.chats = chats;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", username='" + username + '\'' +
+                '}';
     }
 }

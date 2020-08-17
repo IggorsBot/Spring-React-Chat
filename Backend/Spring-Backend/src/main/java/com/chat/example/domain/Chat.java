@@ -48,4 +48,13 @@ public class Chat {
     public void setUserId(Collection<User> userId) {
         this.userId = userId;
     }
+
+    @Override
+    public String toString() {
+        return "Chat{" +
+                "chatId=" + chatId +
+                ", name='" + name + '\'' +
+                ", userId=" + userId +
+                '}';
+    }
 }

@@ -2,7 +2,7 @@
 import React, {Fragment, useState} from 'react';
 
 // Components
-import {getUsernames, addHandler} from './util/ws'
+import {getUsernames, addHandler, newChat} from './util/ws'
 
 // Third-party
 import Modal from 'react-modal';
@@ -17,7 +17,7 @@ function NewChatContainer() {
     const [searchUser, setSearchUser] = useState("");
 
     React.useEffect(() => {
-        addHandler((data) => {
+        addHandler("UserListHandler", (data) => {
             setUsernames(data)
         });
     }, []);
@@ -28,6 +28,10 @@ function NewChatContainer() {
 
     function handleSearchUser(evt) {
         setSearchUser(evt.target.value)
+    }
+
+    const createNewChat = username => {
+        newChat({username: username})
     }
 
     return (
@@ -51,9 +55,9 @@ function NewChatContainer() {
                 <div className="users">
                 {usernames.slice(0,3).map((username, index) => {
                     return (
-                        <div className="username" key={index}>
+                        <div className="username" key={index} onClick={() => createNewChat(username)}>
                             <img />
-                            <p>{usernames[index]}</p>
+                            <p>{username}</p>
                         </div>
                     )
                 })}
