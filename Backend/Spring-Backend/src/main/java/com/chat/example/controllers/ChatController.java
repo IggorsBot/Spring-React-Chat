@@ -35,8 +35,6 @@ public class ChatController {
     @SendTo("/topic/activity")
     public List<Chat> getChatsByUsername(Principal principal) {
         User user = userRepository.findByUsername(principal.getName()).orElse(null);
-        System.out.println("Test User" + user.getUserId());
-        System.out.println("Test " + userRepository.findChatsByUserId(user.getUserId()));
         return null;
     }
 

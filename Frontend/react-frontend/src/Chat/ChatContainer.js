@@ -4,7 +4,7 @@ import React, {Fragment} from 'react';
 // Components
 import SearchContainer from './SearchContainer';
 import ConversationList from './Conversation/ConversationList';
-import NewChatContainer from './NewChatContainer';
+import FormForNewChat from './FormForNewChat/FormForNewChat';
 import ChatTitle from './ChatTitle';
 import ChatMessageList from './Message/ChatMessageList';
 import ChatForm from './ChatForm';
@@ -24,7 +24,7 @@ function ChatContainer() {
             <div id="chat-container">
                 <SearchContainer />
                 <ConversationList />
-                <NewChatContainer />
+                <FormForNewChat />
                 <ChatTitle />
                 <ChatMessageList />
                 <ChatForm />
