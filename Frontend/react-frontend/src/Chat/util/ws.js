@@ -53,7 +53,7 @@ export function getConversationList() {
     }
 }
 
-export function getUsernames(username) {
+export function getUsersForNewChat(username) {
     if (stompClient != null) {
         stompClient.send("/app/searchUser", {}, JSON.stringify(username))
     }
