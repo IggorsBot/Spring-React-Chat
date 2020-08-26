@@ -9,12 +9,23 @@ const API_URL = "http://localhost:8080"
 
 export default class AuthenticationService {
 
+    static setDataInLocalStorage(username, token) {
+        localStorage.setItem('authorization', token)
+        localStorage.setItem('user', username)
+        localStorage.setItem('isAuth', true)
+    }
+
+    static removeDataFromLocalStorage() {
+        localStorage.removeItem('authorization')
+        localStorage.removeItem('user')
+        localStorage.removeItem('isAuth')
+    }
+
     static loginService(username, password, successCallback, errorCallback) {
-        return AuthenticationRepository.loginRepository({username, password},
+        return AuthenticationRepository.loginRepository(
+            {username, password},
              function (response) {
-                 localStorage.setItem('authorization', response.headers['authorization'])
-                 localStorage.setItem('user', username)
-                 localStorage.setItem('isAuth', true)
+                 AuthenticationService.setDataInLocalStorage(username, response.headers['authorization'])
                  successCallback()
              },
              function (error) {
@@ -22,31 +33,19 @@ export default class AuthenticationService {
              })
     }
 
+    static registrationService(username, email, password, successCallback, errorCallback) {
+        return AuthenticationRepository.registrationRepository(
+            {username, email, password},
+            function (response) {
+                AuthenticationService.setDataInLocalStorage(username, response.headers['authorization'])
+                successCallback()
+            },
+            function (error) {
+                errorCallback(error)
+            })
+    }
+
     static logoutService() {
-        localStorage.removeItem('authorization')
-        localStorage.removeItem('user')
-        localStorage.removeItem('isAuth')
+        AuthenticationService.removeDataFromLocalStorage()
     }
-
-    static registrationService(username, email, password) {
-        console.log("Registrarion Service ", username, " ", email, " ", password)
-    }
-
-    // registration(username, email, password) {
-    //     return axios
-    //         .post(API_URL + "/registration", {
-    //             username,
-    //             email,
-    //             password
-    //         })
-    //         .then(response => {
-    //             if (response.status === 200) {
-    //                 localStorage.setItem('authorization', response.headers['authorization'])
-    //                 localStorage.setItem('user', username)
-    //                 localStorage.setItem('isAuth', true)
-    //             }
-    //         })
-    // }
 }
-
-// export default new AuthenticationService();

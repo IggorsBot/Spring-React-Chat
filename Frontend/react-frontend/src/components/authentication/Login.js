@@ -12,7 +12,7 @@ function Login(params) {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [status, setStatus] = useState("");
+    const [responseStatus, setResponseStatus] = useState("");
 
     function handleUsername(evt) {
         setUsername(evt.target.value)
@@ -32,12 +32,7 @@ function Login(params) {
 
     function loginError(error) {
         if (error.response != undefined) {
-            if (error.response.status === 403) {
-                setStatus("403 Forbidden")
-            }
-            else {
-                setStatus("Error")
-            }
+            setResponseStatus("Error " + error.response.status)
         }
     }
 
@@ -62,7 +57,7 @@ function Login(params) {
                 </div>
 
                 <div css={loginErrorStyles}>
-                    {status}
+                    {responseStatus}
                 </div>
             </div>
         </Fragment>
