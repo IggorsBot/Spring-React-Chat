@@ -5,7 +5,7 @@ import { jsx, css } from '@emotion/core'
 import React, {Fragment, useState} from 'react';
 
 // Components
-import {getUsernames, addHandler, newChat} from './../util/ws'
+import {getUsersForNewChat, addHandler, newChat} from './util/ws'
 
 // Third-party
 import Modal from 'react-modal';
@@ -30,7 +30,7 @@ function FormForNewChat() {
     }, []);
 
     React.useEffect(() => {
-        getUsernames({username: usernameForSearch})
+        getUsersForNewChat({username: usernameForSearch})
     }, [usernameForSearch]);
 
     function handleSearchUser(evt) {
