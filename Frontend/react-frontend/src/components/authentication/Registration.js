@@ -2,7 +2,7 @@
 import React, {Fragment, useState} from 'react';
 
 // Components
-import AuthService from 'services/AuthService';
+import AuthenticationService from 'services/AuthenticationService';
 
 
 function Registration(params) {
@@ -29,7 +29,7 @@ function Registration(params) {
     }
 
     function registration () {
-        AuthService.registration(username, email, password).then(() => {
+        AuthenticationService.registrationService(username, email, password).then(() => {
                 window.location.reload();
             }
         )

@@ -1,14 +1,16 @@
+
 // React
 import React, {Fragment, useState} from 'react';
 
 // Components
-import AuthService from 'services/AuthService';
+import AuthenticationService from 'services/AuthenticationService';
 
 
 function Login(params) {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [status, setStatus] = useState("");
 
     function handleUsername(evt) {
         setUsername(evt.target.value)
@@ -19,10 +21,22 @@ function Login(params) {
     }
 
     function login () {
-        AuthService.login(username, password).then(() => {
-                window.location.reload();
+        AuthenticationService.loginService(username, password, loginSuccessful, loginError)
+    }
+
+    function loginSuccessful() {
+        window.location.reload();
+    }
+
+    function loginError(error) {
+        if (error.response != undefined) {
+            if (error.response.status === 403) {
+                setStatus("403 Forbidden")
             }
-        )
+            else {
+                setStatus("Error")
+            }
+        }
     }
 
     return (
@@ -43,6 +57,10 @@ function Login(params) {
 
                 <div className="bottom-text">
                   Don't have account? <span className="link" onClick={() => params.setLoginPage(false)}>Sign up</span>
+                </div>
+
+                <div>
+                    {status}
                 </div>
             </div>
         </Fragment>
