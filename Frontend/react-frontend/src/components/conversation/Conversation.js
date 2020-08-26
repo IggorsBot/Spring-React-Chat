@@ -2,9 +2,9 @@
 import React, {Fragment} from 'react';
 
 // Components
-import ConversationDate from './ConversationContent/ConversationDate';
-import ConversationMessage from './ConversationContent/ConversationMessage';
-import ConversationTitleText from './ConversationContent/ConversationTitleText';
+import ConversationDate from 'components/conversation/conversationContent/ConversationDate';
+import ConversationMessage from 'components/conversation/conversationContent/ConversationMessage';
+import ConversationTitleText from 'components/conversation/conversationContent/ConversationTitleText';
 
 
 function Conversation(props) {

@@ -1,14 +1,18 @@
+/** @jsx jsx */
+import { jsx, css } from '@emotion/core'
+
 // React
 import React, {Fragment, useState} from 'react';
 
 // Components
-import AuthService from './../services/AuthService';
+import AuthenticationService from 'services/AuthenticationService';
 
 
 function Login(params) {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [responseStatus, setResponseStatus] = useState("");
 
     function handleUsername(evt) {
         setUsername(evt.target.value)
@@ -19,10 +23,17 @@ function Login(params) {
     }
 
     function login () {
-        AuthService.login(username, password).then(() => {
-                window.location.reload();
-            }
-        )
+        AuthenticationService.loginService(username, password, loginSuccessful, loginError)
+    }
+
+    function loginSuccessful() {
+        window.location.reload();
+    }
+
+    function loginError(error) {
+        if (error.response != undefined) {
+            setResponseStatus("Error " + error.response.status)
+        }
     }
 
     return (
@@ -44,9 +55,21 @@ function Login(params) {
                 <div className="bottom-text">
                   Don't have account? <span className="link" onClick={() => params.setLoginPage(false)}>Sign up</span>
                 </div>
+
+                <div css={loginErrorStyles}>
+                    {responseStatus}
+                </div>
             </div>
         </Fragment>
     );
 }
 
 export default Login;
+
+const loginErrorStyles = () =>
+    css`
+    margin-top: 60px;
+    text-align: center;
+    font-size: 13px;
+    color: red;
+    `;

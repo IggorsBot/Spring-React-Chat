@@ -34,8 +34,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors().and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/login").permitAll()
-                .antMatchers(HttpMethod.POST, "/registration").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/v0/login").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/v0/registration").permitAll()
                 .anyRequest().authenticated()
 
                 // Filter to check JWT in header

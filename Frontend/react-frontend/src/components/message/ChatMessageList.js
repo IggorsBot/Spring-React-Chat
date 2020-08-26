@@ -2,8 +2,8 @@
 import React, {Fragment} from 'react';
 
 // Components
-import YourMessage from './YourMessage';
-import OtherMessage from './OtherMessage';
+import YourMessage from 'components/message/YourMessage';
+import OtherMessage from 'components/message/OtherMessage';
 
 
 function ChatMessageList() {

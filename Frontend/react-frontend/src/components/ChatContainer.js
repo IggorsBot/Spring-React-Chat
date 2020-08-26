@@ -3,14 +3,14 @@ import React, {Fragment} from 'react';
 
 // Components
 import SearchContainer from './SearchContainer';
-import ConversationList from './Conversation/ConversationList';
+import ConversationList from './conversation/ConversationList';
 import FormForNewChat from './FormForNewChat';
 import ChatTitle from './ChatTitle';
-import ChatMessageList from './Message/ChatMessageList';
+import ChatMessageList from './message/ChatMessageList';
 import ChatForm from './ChatForm';
 
 // Util
-import {connect} from './../Chat/util/ws';
+import { connect } from 'components/util/ws';
 
 
 function ChatContainer() {

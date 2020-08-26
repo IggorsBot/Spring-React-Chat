@@ -2,8 +2,8 @@
 import React, {Fragment} from 'react';
 
 // Components
-import MessageText from './MessageContent/MessageText';
-import MessageTime from './MessageContent/MessageTime';
+import MessageText from 'components/message/messageContent/MessageText';
+import MessageTime from 'components/message/messageContent/MessageTime';
 
 
 function OtherMessage() {
