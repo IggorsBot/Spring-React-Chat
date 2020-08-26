@@ -2,7 +2,7 @@
 import React, {Fragment} from 'react';
 
 // Components
-import Conversation from './Conversation';
+import Conversation from 'components/conversation/Conversation';
 import {getConversationList, addHandler} from './../util/ws'
 
 
@@ -17,6 +17,10 @@ function ConversationList() {
             setChatList(chatList => [...chatList, data])
         });
     }, []);
+
+    // React.useEffect(() => {
+    //     get
+    // }, []);
 
     return (
         <Fragment>

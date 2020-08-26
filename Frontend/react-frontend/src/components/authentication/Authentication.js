@@ -2,11 +2,11 @@
 import React, {Fragment, useState} from 'react';
 
 // Components
-import Registration from './Registration';
-import Login from './Login';
+import Registration from 'components/authentication/Registration';
+import Login from 'components/authentication/Login';
 
 
-function Auth() {
+function Authentication() {
 
     const [isLoginPage, setLoginPage] = useState(true);
 
@@ -22,4 +22,4 @@ function Auth() {
     );
 }
 
-export default Auth;
+export default Authentication;

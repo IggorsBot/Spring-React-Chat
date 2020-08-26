@@ -2,7 +2,7 @@
 import React from 'react';
 
 // Components
-import AuthService from './services/AuthService';
+import AuthService from 'services/AuthService';
 
 
 function ChatTitle() {

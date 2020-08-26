@@ -2,7 +2,7 @@
 import React, {Fragment, useState} from 'react';
 
 // Third-Party
-import {sendMessage} from './util/ws'
+import {sendMessage} from 'components/util/ws'
 
 
 function ChatForm() {

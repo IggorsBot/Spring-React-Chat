@@ -5,7 +5,7 @@ import { jsx, css } from '@emotion/core'
 import React, {Fragment, useState} from 'react';
 
 // Components
-import {getUsersForNewChat, addHandler, newChat} from './util/ws'
+import {getUsersForNewChat, addHandler, newChat} from 'components/util/ws'
 
 // Third-party
 import Modal from 'react-modal';
