@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx, css } from '@emotion/core'
 
 // React
 import React, {Fragment, useState} from 'react';
@@ -59,7 +61,7 @@ function Login(params) {
                   Don't have account? <span className="link" onClick={() => params.setLoginPage(false)}>Sign up</span>
                 </div>
 
-                <div>
+                <div css={loginErrorStyles}>
                     {status}
                 </div>
             </div>
@@ -68,3 +70,11 @@ function Login(params) {
 }
 
 export default Login;
+
+const loginErrorStyles = () =>
+    css`
+    margin-top: 60px;
+    text-align: center;
+    font-size: 13px;
+    color: red;
+    `;
