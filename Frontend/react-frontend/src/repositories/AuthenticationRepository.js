@@ -1,21 +1,18 @@
 // Third-Party
 import axios from 'axios'
 
-const API_URL = "http://localhost:8080"
+import { API_URL } from 'util/PathAPI'
 
+export function loginRepository(data, successCallback, errorCallback) {
+    return axios
+        .post(API_URL + "/api/v0/login", data)
+        .then(successCallback)
+        .catch(errorCallback);
+}
 
-export default class AuthenticationRepository {
-    static loginRepository(data, successCallback, errorCallback) {
-        return axios
-                .post(API_URL + "/api/v0/login", data)
-                .then(successCallback)
-                .catch(errorCallback);
-    }
-
-    static registrationRepository(data, successCallback, errorCallback) {
-        return axios
-                .post(API_URL + "/api/v0/registration", data)
-                .then(successCallback)
-                .catch(errorCallback)
-    }
+export function registrationRepository(data, successCallback, errorCallback) {
+    return axios
+        .post(API_URL + "/api/v0/registration", data)
+        .then(successCallback)
+        .catch(errorCallback)
 }

@@ -4,9 +4,8 @@ import { jsx, css } from '@emotion/core'
 // React
 import React, {Fragment, useState} from 'react';
 
-// Components
-import AuthenticationService from 'services/AuthenticationService';
-
+// Service
+import { loginService } from 'services/AuthenticationService'
 
 function Login(params) {
 
@@ -23,7 +22,7 @@ function Login(params) {
     }
 
     function login () {
-        AuthenticationService.loginService(username, password, loginSuccessful, loginError)
+        loginService(username, password, loginSuccessful, loginError)
     }
 
     function loginSuccessful() {

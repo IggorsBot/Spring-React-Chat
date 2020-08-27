@@ -4,11 +4,13 @@ import { jsx, css } from '@emotion/core'
 // React
 import React, {Fragment, useState} from 'react';
 
-// Components
+// WebSocket
 import { addHandler } from 'util/ws'
+import { USER_LIST_FOR_NEW_CHAT } from 'util/HandlerNames'
+
+// Service
 import { getUsersService } from 'services/UserService'
 import { newChatService } from 'services/ChatService'
-import { USER_LIST_FOR_NEW_CHAT } from 'util/HandlerNames'
 
 // Third-party
 import Modal from 'react-modal';

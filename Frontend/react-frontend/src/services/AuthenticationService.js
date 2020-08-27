@@ -2,40 +2,36 @@
 import axios from 'axios'
 
 // Repository
-import AuthenticationRepository from 'repositories/AuthenticationRepository';
+import { loginRepository, registrationRepository } from 'repositories/AuthenticationRepository';
 
 
-export default class AuthenticationService {
-
-    static setDataInLocalStorage(username, token) {
-        localStorage.setItem('authorization', token)
+export function setDataInLocalStorage(username, token) {
         localStorage.setItem('user', username)
+        localStorage.setItem('authorization', token)
         localStorage.setItem('isAuth', true)
-    }
+}
 
-    static removeDataFromLocalStorage() {
+export function removeDataFromLocalStorage() {
         localStorage.removeItem('authorization')
         localStorage.removeItem('user')
         localStorage.removeItem('isAuth')
-    }
+}
 
-    static loginService(username, password, successCallback, errorCallback) {
-        return AuthenticationRepository.loginRepository(
-            {username, password},
+export function loginService(username, password, successCallback, errorCallback) {
+        return loginRepository({username, password},
              function (response) {
-                 AuthenticationService.setDataInLocalStorage(username, response.headers['authorization'])
+                 setDataInLocalStorage(username, response.headers['authorization'])
                  successCallback()
              },
              function (error) {
                  errorCallback(error)
              })
-    }
+}
 
-    static registrationService(username, email, password, successCallback, errorCallback) {
-        return AuthenticationRepository.registrationRepository(
-            {username, email, password},
+export function registrationService(username, email, password, successCallback, errorCallback) {
+        return registrationRepository({username, email, password},
             function (response) {
-                AuthenticationService.setDataInLocalStorage(username, response.headers['authorization'])
+                setDataInLocalStorage(username, response.headers['authorization'])
                 successCallback()
             },
             function (error) {
@@ -43,7 +39,6 @@ export default class AuthenticationService {
             })
     }
 
-    static logoutService() {
-        AuthenticationService.removeDataFromLocalStorage()
+export function logoutService() {
+        removeDataFromLocalStorage()
     }
-}
