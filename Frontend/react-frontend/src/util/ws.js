@@ -2,7 +2,10 @@
 import SockJS from 'sockjs-client'
 import {Stomp} from '@stomp/stompjs'
 
-var stompClient = null
+import { USER_LIST_FOR_NEW_CHAT, NEW_CHAT } from 'util/HandlerNames'
+
+
+export var stompClient = null
 
 const handlers = new Map()
 
@@ -15,13 +18,13 @@ export function connect() {
 
             stompClient.subscribe('/topic/users', message => {
                 handlers.forEach((value, key) => {
-                    if(key === "UserListHandler") value(JSON.parse(message.body))
+                    if(key === USER_LIST_FOR_NEW_CHAT) value(JSON.parse(message.body))
                 })
             })
 
             stompClient.subscribe('/topic/newChat', message => {
                 handlers.forEach((value, key) => {
-                    if(key === "NewChatHandler") value(JSON.parse(message.body))
+                    if(key === NEW_CHAT) value(JSON.parse(message.body))
                 })
             })
         })
@@ -37,24 +40,4 @@ export function disconnect() {
         stompClient.disconnect()
     }
     console.log("Disconnected")
-}
-
-export function sendMessage(message) {
-    stompClient.send("/app/newMessage", {}, JSON.stringify(message))
-}
-
-export function newChat(username) {
-    stompClient.send("/app/newChat", {}, JSON.stringify(username))
-}
-
-export function getConversationList() {
-    if (stompClient != null) {
-        stompClient.send("/app/chatList", {}, JSON.stringify())
-    }
-}
-
-export function getUsersForNewChat(username) {
-    if (stompClient != null) {
-        stompClient.send("/app/searchUser", {}, JSON.stringify(username))
-    }
 }

@@ -5,7 +5,10 @@ import { jsx, css } from '@emotion/core'
 import React, {Fragment, useState} from 'react';
 
 // Components
-import {getUsersForNewChat, addHandler, newChat} from 'components/util/ws'
+import { addHandler } from 'util/ws'
+import { getUsersService } from 'services/UserService'
+import { newChatService } from 'services/ChatService'
+import { USER_LIST_FOR_NEW_CHAT } from 'util/HandlerNames'
 
 // Third-party
 import Modal from 'react-modal';
@@ -24,13 +27,13 @@ function FormForNewChat() {
     const [userForNewChat, setUserForNewChat] = useState("");
 
     React.useEffect(() => {
-        addHandler("UserListHandler", (data) => {
+        addHandler(USER_LIST_FOR_NEW_CHAT, (data) => {
             setFoundedUsersList({...foundedUsersList, users: data, activeStateUsers: null})
         });
     }, []);
 
     React.useEffect(() => {
-        getUsersForNewChat({username: usernameForSearch})
+        getUsersService({username: usernameForSearch})
     }, [usernameForSearch]);
 
     function handleSearchUser(evt) {
@@ -43,7 +46,7 @@ function FormForNewChat() {
 
     function createNewChat () {
         if (userForNewChat.length > 0) {
-            newChat({username: userForNewChat})
+            newChatService({username: userForNewChat})
             setUserForNewChat("")
         }
     }

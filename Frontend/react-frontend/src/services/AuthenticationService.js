@@ -5,8 +5,6 @@ import axios from 'axios'
 import AuthenticationRepository from 'repositories/AuthenticationRepository';
 
 
-const API_URL = "http://localhost:8080"
-
 export default class AuthenticationService {
 
     static setDataInLocalStorage(username, token) {

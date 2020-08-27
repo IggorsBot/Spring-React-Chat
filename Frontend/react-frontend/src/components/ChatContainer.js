@@ -10,7 +10,7 @@ import ChatMessageList from './message/ChatMessageList';
 import ChatForm from './ChatForm';
 
 // Util
-import { connect } from 'components/util/ws';
+import { connect } from 'util/ws';
 
 
 function ChatContainer() {

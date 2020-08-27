@@ -1,8 +1,8 @@
 // React
-import React, {Fragment, useState} from 'react';
+import React, { Fragment, useState } from 'react';
 
 // Third-Party
-import {sendMessage} from 'components/util/ws'
+import { sendMessageService } from 'services/ChatService'
 
 
 function ChatForm() {
@@ -10,7 +10,7 @@ function ChatForm() {
     const[message, setMessage] = useState('')
 
     const save = () => {
-        sendMessage({contect: message})
+        sendMessageService({contect: message})
         setMessage("")
     }
 
