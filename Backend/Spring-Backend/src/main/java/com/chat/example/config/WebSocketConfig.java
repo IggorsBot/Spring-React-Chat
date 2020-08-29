@@ -1,10 +1,8 @@
 package com.chat.example.config;
 
 import com.chat.example.domain.CustomUserDetails;
-import com.chat.example.services.AuthenticationProviderService;
 import com.chat.example.services.AuthenticationService;
 import com.chat.example.services.JpaUserDetailsService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
@@ -14,12 +12,17 @@ import org.springframework.messaging.simp.stomp.StompCommand;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.ChannelInterceptor;
 import org.springframework.messaging.support.MessageHeaderAccessor;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
+
+import javax.servlet.ServletException;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -51,17 +54,25 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
             public Message<?> preSend(Message<?> message, MessageChannel channel) {
                 StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
                 if (accessor != null && StompCommand.CONNECT.equals(accessor.getCommand())) {
-                    Optional.ofNullable(accessor.getNativeHeader("Authorization")).ifPresent(ah -> {
-                        String bearerToken = ah.get(0).replace("Bearer ", "");
-                        String username = AuthenticationService.getUserFromToken(bearerToken);
-                        CustomUserDetails user = (CustomUserDetails) userDetailsService.loadUserByUsername(username);
-                        Authentication authentication = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
-                        SecurityContextHolder.getContext().setAuthentication(authentication);
-                        accessor.setUser(authentication);
-                    });
+                    setUserInUserContext(accessor);
                 }
                 return message;
             }
         });
+    }
+
+    private void setUserInUserContext(StompHeaderAccessor accessor) {
+        Optional.ofNullable(accessor.getNativeHeader("Authorization")).ifPresent(ah -> {
+            CustomUserDetails user = (CustomUserDetails) userDetailsService.loadUserByUsername(getUsernameFromToken(accessor));
+            Authentication authentication = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            accessor.setUser(authentication);
+        });
+    }
+
+    private String getUsernameFromToken(StompHeaderAccessor accessor) {
+        return AuthenticationService.getUserFromToken(
+                Objects.requireNonNull(accessor.getNativeHeader("Authorization")).get(0).substring(7)
+        );
     }
 }
