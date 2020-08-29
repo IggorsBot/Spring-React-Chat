@@ -3,8 +3,8 @@ import React, {Fragment} from 'react';
 
 // Components
 import Conversation from 'components/conversation/Conversation'
-import { addHandler} from 'util/ws'
-import { NEW_CHAT } from 'util/HandlerNames'
+import { addHandler} from 'util/WebSocketConfig'
+import { NEW_CHAT } from 'util/PathAPI'
 import { getChatListService } from 'services/ChatService'
 
 function ConversationList() {

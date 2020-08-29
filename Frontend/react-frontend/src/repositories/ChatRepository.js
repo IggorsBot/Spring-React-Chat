@@ -1,4 +1,4 @@
-import { stompClient } from 'util/ws'
+import { stompClient } from 'util/WebSocketConfig'
 
 export function newChatRepository(username) {
     stompClient.send("/app/newChat", {}, JSON.stringify(username))

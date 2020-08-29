@@ -2,32 +2,34 @@
 import SockJS from 'sockjs-client'
 import {Stomp} from '@stomp/stompjs'
 
-import { USER_LIST_FOR_NEW_CHAT, NEW_CHAT } from 'util/HandlerNames'
 import { API_URL } from 'util/PathAPI'
+
 
 export var stompClient = null
 
-const handlers = new Map()
+export var handlers = new Map()
 
 export function connect() {
     return new Promise(function(resolve, reject) {
         const socket = SockJS(API_URL + "/chat-websocket")
         stompClient = Stomp.over(socket)
         stompClient.debug = () => {};
-        stompClient.connect({"Authorization": localStorage.getItem("authorization")}, frame => {
+        stompClient.connect(
 
-            stompClient.subscribe("/topic/users", message => {
-                handlers.forEach((value, key) => {
-                    if(key === USER_LIST_FOR_NEW_CHAT) value(JSON.parse(message.body))
-                })
-            })
+            // Header
+            {"Authorization": localStorage.getItem("authorization")},
 
-            stompClient.subscribe("/topic/newChat", message => {
+            // Success Callback
+            frame => {
                 handlers.forEach((value, key) => {
-                    if(key === NEW_CHAT) value(JSON.parse(message.body))
-                })
-            })
-        })
+                    stompClient.subscribe(key, message => value(JSON.parse(message.body)))
+            })},
+
+            // Error Callback
+            () => {
+                console.log("Error Callback")
+            }
+        )
     })
 }
 

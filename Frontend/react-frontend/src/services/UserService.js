@@ -1,4 +1,4 @@
-import { stompClient } from 'util/ws'
+import { stompClient } from 'util/WebSocketConfig'
 import { getUsersRepository } from 'repositories/UserRepository'
 
 export function getUsersService(username) {

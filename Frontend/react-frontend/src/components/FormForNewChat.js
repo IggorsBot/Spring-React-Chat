@@ -5,8 +5,8 @@ import { jsx, css } from '@emotion/core'
 import React, {Fragment, useState} from 'react';
 
 // WebSocket
-import { addHandler } from 'util/ws'
-import { USER_LIST_FOR_NEW_CHAT } from 'util/HandlerNames'
+import { addHandler } from 'util/WebSocketConfig'
+import { SEARCH_USERS_FOR_NEW_CHAT } from 'util/PathAPI'
 
 // Service
 import { getUsersService } from 'services/UserService'
@@ -29,7 +29,7 @@ function FormForNewChat() {
     const [userForNewChat, setUserForNewChat] = useState("");
 
     React.useEffect(() => {
-        addHandler(USER_LIST_FOR_NEW_CHAT, (data) => {
+        addHandler(SEARCH_USERS_FOR_NEW_CHAT, (data) => {
             setFoundedUsersList({...foundedUsersList, users: data, activeStateUsers: null})
         });
     }, []);
