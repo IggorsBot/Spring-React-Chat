@@ -2,18 +2,19 @@
 import React, {Fragment} from 'react';
 
 // Components
-import Conversation from './Conversation';
-import {getConversationList, addHandler} from './../util/ws'
-
+import Conversation from 'components/conversation/Conversation'
+import { addHandler} from 'util/WebSocketConfig'
+import { NEW_CHAT } from 'util/PathAPI'
+import { getChatListService } from 'services/ChatService'
 
 function ConversationList() {
 
     const [chatList, setChatList] = React.useState([])
 
     React.useEffect(() => {
-        getConversationList()
+        getChatListService()
 
-        addHandler("NewChatHandler", (data) => {
+        addHandler(NEW_CHAT, (data) => {
             setChatList(chatList => [...chatList, data])
         });
     }, []);

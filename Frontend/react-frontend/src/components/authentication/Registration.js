@@ -1,9 +1,11 @@
+/** @jsx jsx */
+import { jsx, css } from '@emotion/core'
+
 // React
 import React, {Fragment, useState} from 'react';
 
-// Components
-import AuthService from './../services/AuthService';
-
+// Service
+import { registrationService } from 'services/AuthenticationService'
 
 function Registration(params) {
 
@@ -11,6 +13,8 @@ function Registration(params) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [passwordRepeat, setPasswordRepeat] = useState("");
+    const [responseStatus, setResponseStatus] = useState("");
+
 
     function handleUsername(evt) {
         setUsername(evt.target.value)
@@ -29,10 +33,18 @@ function Registration(params) {
     }
 
     function registration () {
-        AuthService.registration(username, email, password).then(() => {
-                window.location.reload();
-            }
-        )
+        registrationService(username, email, password, registrationSuccessful, registrationError)
+
+    }
+
+    function registrationSuccessful() {
+        window.location.reload();
+    }
+
+    function registrationError(error) {
+        if (error.response != undefined) {
+            setResponseStatus("Error " + error.response.status)
+        }
     }
 
     return (
@@ -64,9 +76,21 @@ function Registration(params) {
                     Have you an account? <span className="link" onClick={() => params.setLoginPage(true)}>Sing in</span>
                 </div>
 
+                <div css={registrationErrorStyles}>
+                    {responseStatus}
+                </div>
+
             </div>
         </Fragment>
     );
 }
 
 export default Registration;
+
+const registrationErrorStyles = () =>
+    css`
+    margin-top: 60px;
+    text-align: center;
+    font-size: 13px;
+    color: red;
+    `;

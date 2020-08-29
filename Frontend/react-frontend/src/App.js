@@ -2,15 +2,15 @@
 import React, {Fragment} from 'react';
 
 // Components
-import ChatContainer from './Chat/ChatContainer';
-import Auth from './Chat/Auth/Auth';
+import ChatContainer from 'components/ChatContainer';
+import Authentication from 'components/authentication/Authentication';
 
 
 function App() {
 
     return (
         <Fragment>
-            {localStorage.getItem('isAuth') ? <ChatContainer /> : <Auth />}
+            {localStorage.getItem('isAuth') ? <ChatContainer /> : <Authentication />}
         </Fragment>
     )
 }

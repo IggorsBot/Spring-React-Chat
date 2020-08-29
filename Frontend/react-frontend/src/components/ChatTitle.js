@@ -1,9 +1,8 @@
 // React
 import React from 'react';
 
-// Components
-import AuthService from './services/AuthService';
-
+// Service
+import { logoutService } from 'services/AuthenticationService'
 
 function ChatTitle() {
 
@@ -14,7 +13,7 @@ function ChatTitle() {
     }, []);
 
     function logout() {
-        AuthService.logout()
+        logoutService()
         window.location.reload()
     }
 
