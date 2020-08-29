@@ -4,9 +4,8 @@ import { jsx, css } from '@emotion/core'
 // React
 import React, {Fragment, useState} from 'react';
 
-// Components
-import AuthenticationService from 'services/AuthenticationService';
-
+// Service
+import { registrationService } from 'services/AuthenticationService'
 
 function Registration(params) {
 
@@ -34,7 +33,7 @@ function Registration(params) {
     }
 
     function registration () {
-        AuthenticationService.registrationService(username, email, password, registrationSuccessful, registrationError)
+        registrationService(username, email, password, registrationSuccessful, registrationError)
 
     }
 
