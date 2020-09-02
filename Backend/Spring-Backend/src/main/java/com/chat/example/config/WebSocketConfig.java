@@ -1,8 +1,8 @@
 package com.chat.example.config;
 
 import com.chat.example.domain.CustomUserDetails;
-import com.chat.example.services.AuthenticationService;
-import com.chat.example.services.JpaUserDetailsService;
+import com.chat.example.service.AuthenticationService;
+import com.chat.example.service.JpaUserDetailsService;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
@@ -12,7 +12,6 @@ import org.springframework.messaging.simp.stomp.StompCommand;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.ChannelInterceptor;
 import org.springframework.messaging.support.MessageHeaderAccessor;
-import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,8 +19,6 @@ import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBr
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
-import javax.servlet.ServletException;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 

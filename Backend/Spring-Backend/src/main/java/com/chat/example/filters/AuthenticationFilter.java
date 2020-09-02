@@ -1,6 +1,6 @@
 package com.chat.example.filters;
 
-import com.chat.example.services.AuthenticationService;
+import com.chat.example.service.AuthenticationService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
