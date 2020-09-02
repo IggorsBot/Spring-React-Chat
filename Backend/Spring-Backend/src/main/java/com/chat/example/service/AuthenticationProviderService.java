@@ -1,4 +1,4 @@
-package com.chat.example.services;
+package com.chat.example.service;
 
 import com.chat.example.domain.CustomUserDetails;
 import org.springframework.security.authentication.AuthenticationProvider;

@@ -1,9 +1,9 @@
 package com.chat.example.controllers;
 
 import com.chat.example.payload.request.LoginRequest;
-import com.chat.example.services.AuthenticationProviderService;
-import com.chat.example.services.AuthenticationService;
-import com.chat.example.domain.User;
+import com.chat.example.service.AuthenticationProviderService;
+import com.chat.example.service.AuthenticationService;
+import com.chat.example.entity.User;
 import com.chat.example.payload.request.RegistrationRequest;
 import com.chat.example.payload.response.MessageResponse;
 import com.chat.example.repository.UserRepository;

@@ -1,7 +1,7 @@
 package com.chat.example.controllers;
 
 import com.chat.example.payload.request.UsernameRequest;
-import com.chat.example.repository.UserRepository;
+import com.chat.example.service.UserService;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
@@ -13,15 +13,15 @@ import java.util.List;
 public class UserController {
 
     final
-    UserRepository userRepository;
+    UserService userService;
 
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @MessageMapping("/searchUser")
-    @SendTo("/topic/users")
+    @SendTo("/topic/foundedUsers")
     public List<String> findUsersWithPartOfName(@RequestParam UsernameRequest username) {
-        return userRepository.findUsersWithPartOfName(username.getUsername());
+        return userService.findUsersWithPartOfName(username.getUsername());
     }
 }

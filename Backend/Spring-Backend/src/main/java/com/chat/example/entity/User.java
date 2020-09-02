@@ -1,4 +1,4 @@
-package com.chat.example.domain;
+package com.chat.example.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -10,7 +10,7 @@ import java.util.Set;
 
 
 @Entity
-@Table(name="chat_users",
+@Table(name="users_app",
     uniqueConstraints = {
             @UniqueConstraint(columnNames = "username"),
             @UniqueConstraint(columnNames = "email")
@@ -18,9 +18,9 @@ import java.util.Set;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Long userId;
+    private Long id;
 
     @NotBlank
     @Size(max = 30)
@@ -30,13 +30,15 @@ public class User {
     @Size(max = 120)
     private String password;
 
-
     @NotBlank
     @Size(max = 50)
     @Email
     private String email;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "chat_users",
+            joinColumns=@JoinColumn(name="user_id"),
+            inverseJoinColumns=@JoinColumn(name="chat_id"))
     @JsonIgnore
     private Set<Chat> chats;
 
@@ -49,36 +51,45 @@ public class User {
         this.chats = chats;
     }
 
-    public Long getUserId() {
-        return userId;
+    public User addChat(Chat chat) {
+        this.chats.add(chat);
+        return this;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public Long getUserId() {
+        return id;
+    }
+
+    public User setId(Long id) {
+        this.id = id;
+        return this;
     }
 
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
+    public User setUsername(String username) {
         this.username = username;
+        return this;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public User setPassword(String password) {
         this.password = password;
+        return this;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public User setEmail(String email) {
         this.email = email;
+        return this;
     }
 
     public Set<Chat> getChats() {
@@ -92,8 +103,9 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "userId=" + userId +
+                "id=" + id +
                 ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
                 '}';
     }
 }

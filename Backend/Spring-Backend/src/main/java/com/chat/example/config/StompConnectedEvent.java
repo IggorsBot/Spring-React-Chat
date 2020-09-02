@@ -19,6 +19,6 @@ public class StompConnectedEvent implements ApplicationListener<SessionConnected
 
     @Override
     public void onApplicationEvent(SessionConnectedEvent event) {
-        chatController.getChatsByUsername(event.getUser());
+//        chatController.getChatsByUsername(event.getUser());
     }
 }

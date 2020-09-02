@@ -1,6 +1,6 @@
 package com.chat.example.payload.response;
 
-import com.chat.example.domain.Chat;
+import com.chat.example.entity.Chat;
 
 
 public class ChatResponse {
@@ -8,7 +8,7 @@ public class ChatResponse {
     private String name;
 
     public ChatResponse(Chat chat) {
-        this.chatId = chat.getChatId();
+        this.chatId = chat.getId();
         this.name = chat.getName();
     }
 

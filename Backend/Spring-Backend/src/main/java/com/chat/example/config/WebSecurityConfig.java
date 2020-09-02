@@ -1,7 +1,7 @@
 package com.chat.example.config;
 
 import com.chat.example.filters.AuthenticationFilter;
-import com.chat.example.services.AuthenticationProviderService;
+import com.chat.example.service.AuthenticationProviderService;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

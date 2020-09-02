@@ -1,6 +1,6 @@
 package com.chat.example.domain;
 
-import com.chat.example.domain.User;
+import com.chat.example.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

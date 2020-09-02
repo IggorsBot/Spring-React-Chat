@@ -1,13 +1,12 @@
-package com.chat.example.services;
+package com.chat.example.service;
 
 import com.chat.example.domain.CustomUserDetails;
-import com.chat.example.domain.User;
+import com.chat.example.entity.User;
 import com.chat.example.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import java.util.function.Supplier;
 
 
 @Service
@@ -22,12 +21,12 @@ public class JpaUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Supplier<UsernameNotFoundException> s = () -> new UsernameNotFoundException(
-                "Problem during authentication!"
-        );
+        User user = userRepository.findByUsername(username);
 
-        User u = userRepository.findByUsername(username).orElseThrow(s);
+        if (user == null) {
+            throw new UsernameNotFoundException("Problem during authentication!");
+        }
 
-        return new CustomUserDetails(u);
+        return new CustomUserDetails(user);
     }
 }

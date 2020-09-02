@@ -1,4 +1,4 @@
-package com.chat.example.services;
+package com.chat.example.service;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
